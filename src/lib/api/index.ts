@@ -1,4 +1,6 @@
-export  { apiClient } from './client';
+export {
+    get, post, put, patch, del
+} from './client';
 export type {
     HttpMethod,
     HttpRequestOptions,

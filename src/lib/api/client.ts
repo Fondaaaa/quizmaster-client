@@ -1,4 +1,4 @@
-import { appConfig } from '@/app/config/env'
+import {appConfig} from '@/app/config/env'
 import {
     ApiError,
     type HttpRequestOptions,
@@ -100,57 +100,54 @@ async function request<T>(
     return (await response.text()) as T
 }
 
-export const apiClient = {
-    request,
+export const get = <T>(
+    path: string,
+    options?: Omit<HttpRequestOptions, 'method' | 'body'>,
+) => request<T>(path, {
+    ...options,
+    method: 'GET',
+});
 
-    get: <T>(
-        path: string,
-        options?: Omit<HttpRequestOptions, 'method' | 'body'>,
-    ) =>
-        request<T>(path, {
-            ...options,
-            method: 'GET',
-        }),
+export const post = <T>(
+    path: string,
+    body?: unknown,
+    options?: Omit<HttpRequestOptions, 'method' | 'body'>,
+) =>
+    request<T>(path, {
+        ...options,
+        method: 'POST',
+        body,
+    });
 
-    post: <T>(
-        path: string,
-        body?: unknown,
-        options?: Omit<HttpRequestOptions, 'method' | 'body'>,
-    ) =>
-        request<T>(path, {
-            ...options,
-            method: 'POST',
-            body,
-        }),
+export const put = <T>(
+    path: string,
+    body?: unknown,
+    options?: Omit<HttpRequestOptions, 'method' | 'body'>,
+) =>
+    request<T>(path, {
+        ...options,
+        method: 'PUT',
+        body,
+    });
 
-    put: <T>(
-        path: string,
-        body?: unknown,
-        options?: Omit<HttpRequestOptions, 'method' | 'body'>,
-    ) =>
-        request<T>(path, {
-            ...options,
-            method: 'PUT',
-            body,
-        }),
+export const patch = <T>(
+    path: string,
+    body?: unknown,
+    options?: Omit<HttpRequestOptions, 'method' | 'body'>,
+) =>
+    request<T>(path, {
+        ...options,
+        method: 'PATCH',
+        body,
+    });
 
-    patch: <T>(
-        path: string,
-        body?: unknown,
-        options?: Omit<HttpRequestOptions, 'method' | 'body'>,
-    ) =>
-        request<T>(path, {
-            ...options,
-            method: 'PATCH',
-            body,
-        }),
+export const del = <T>(
+    path: string,
+    options?: Omit<HttpRequestOptions, 'method' | 'body'>,
+) =>
+    request<T>
+    (path, {
+        ...options,
+        method: 'DELETE',
+    });
 
-    delete: <T>(
-        path: string,
-        options?: Omit<HttpRequestOptions, 'method' | 'body'>,
-    ) =>
-        request<T>(path, {
-            ...options,
-            method: 'DELETE',
-        }),
-}
